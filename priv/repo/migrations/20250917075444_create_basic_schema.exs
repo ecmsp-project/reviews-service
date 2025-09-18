@@ -5,13 +5,12 @@ defmodule ReviewsService.Migrations.CreateBasicSchema do
 
     create table(:users, primary_key: false) do
       add :user_id, :uuid, primary_key: true
-
       add :first_name, :string, null: false
-
       add :created_at, :date, default: fragment("now()")
     end
 
-    create table(:reviews) do
+    create table(:reviews, primary_key: false) do
+      add :id, :uuid, primary_key: true
 
       add :user_id, references(:users, column: :user_id, type: :uuid), null: false
 
@@ -32,10 +31,5 @@ defmodule ReviewsService.Migrations.CreateBasicSchema do
     create unique_index(:reviews, [:product_id])
     create unique_index(:reviews, [:user_id])
 
-    # schema "users" do
-    #   field :first_name, :string
-    #   timestamps(inserted_at: :created_at, updated_at: :updated_at)
-    # end
-    
   end
 end

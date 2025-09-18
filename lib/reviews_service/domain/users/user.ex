@@ -16,6 +16,7 @@ defmodule ReviewsService.Domain.User do
       |> change(params)
       |> validate_required([:user_id, :first_name])
       |> validate_length(:first_name, min: 3, max: 13)
+      |> put_change(:created_at, Date.utc_today())
   end
 
   def update_changeset(struct, params) do
